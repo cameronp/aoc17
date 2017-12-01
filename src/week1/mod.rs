@@ -4,13 +4,20 @@ use std::io::prelude::*;
 
 
 pub fn run(part: u32) {
-    println!("Week1: ");
 
     let input = load("inputs/week1.txt").unwrap();
     let values: Vec<u8> = parse(input);
 
-    let answer = process(values);
-    println!("{}", answer);
+    if part == 1 {
+        let answer = process(values);
+        println!("Week1: ");
+        println!("{}", answer);
+    }
+    else {
+        let answer = process2(values);
+        println!("Week2: ");
+        println!("{:?}", answer);
+    }
 }
 
 fn parse(s: String) -> Vec<u8> {
@@ -29,6 +36,15 @@ fn load(file_name: &str ) -> Result<String, Box<Error>> {
     let mut contents = String::new();
     file.read_to_string(&mut contents)?;
     Ok(contents)
+}
+
+fn process2(v: Vec<u8>) -> u32 {
+    let size = v.len() ;
+    let offset = size / 2;
+    (0..size)
+        .filter(|&u| v[u] == v[(u + offset) % size])
+        .map(|i| v[i])
+        .fold(0, |acc: u32, x| acc + (x as u32) )
 }
     
 
