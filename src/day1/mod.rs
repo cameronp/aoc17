@@ -12,12 +12,13 @@ pub fn run(part: u32) {
 fn compute(part: u32) -> u32 {
     let input = load("inputs/day1.txt").unwrap();
     let values: Vec<u8> = parse(input);
+    let size = values.len();
 
     if part == 1 {
-        process(values)
+        process(values,1)
     }
     else {
-        process2(values)
+        process(values, size / 2)
     }
 }
 
@@ -39,40 +40,14 @@ fn load(file_name: &str ) -> Result<String, Box<Error>> {
     Ok(contents)
 }
 
-fn process2(v: Vec<u8>) -> u32 {
+fn process(v: Vec<u8>, offset: usize) -> u32 {
     let size = v.len() ;
-    let offset = size / 2;
     (0..size)
         .filter(|&u| v[u] == v[(u + offset) % size])
         .map(|i| v[i])
         .fold(0, |acc: u32, x| acc + (x as u32) )
 }
     
-
-fn process(v: Vec<u8>) -> u32 {
-    let first = v.first().unwrap();
-    let last = v.last().unwrap();
-    let chunks: Vec<u8> = v
-        .windows(2)
-        .filter(|chunk| { is_valid_chunk(chunk) })
-        .map(|chunk| { chunk[0] })
-        .collect();
-
-    let linear_result: u32 = chunks
-        .iter()
-        .fold(0, |acc: u32, &x| acc + (x as u32) );
-
-    if first == last {
-        linear_result + (*first as u32)
-    }
-    else {
-        linear_result
-    }
-}
-
-fn is_valid_chunk(chunk: &[u8]) -> bool {
-    chunk[0] == chunk[1]
-}
 
 #[cfg(test)]    
 mod test {

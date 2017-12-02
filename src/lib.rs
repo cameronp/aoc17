@@ -8,8 +8,17 @@ pub struct Config {
 
 impl Config {
     fn parse_args(day_s: &str, part_s: &str) -> Result<Config, &'static str> {
-       let day = u32::from_str_radix(day_s, 10).unwrap();
-       let part = u32::from_str_radix(part_s, 10).unwrap();
+       let day = 
+           match u32::from_str_radix(day_s, 10) {
+               Ok(res) => res,
+               Err(_) => return Err("Invalid day"),
+           };
+
+       let part = 
+           match u32::from_str_radix(part_s, 10) {
+               Ok(res) => res,
+               Err(_) => return Err("Invalid part"),
+           };
 
        Ok( Config {day: day, part: part})
     }
