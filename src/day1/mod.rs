@@ -5,7 +5,7 @@ use std::io::prelude::*;
 
 pub fn run(part: u32) {
 
-    let input = load("inputs/week1.txt").unwrap();
+    let input = load("inputs/day1.txt").unwrap();
     let values: Vec<u8> = parse(input);
 
     if part == 1 {
