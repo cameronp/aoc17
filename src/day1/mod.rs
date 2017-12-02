@@ -61,7 +61,7 @@ fn process(v: Vec<u8>) -> u32 {
         .iter()
         .fold(0, |acc: u32, &x| acc + (x as u32) );
 
-    if (first == last) {
+    if first == last {
         linear_result + (*first as u32)
     }
     else {

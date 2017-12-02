@@ -1,4 +1,5 @@
 mod day1;
+mod day2;
 
 pub struct Config {
     pub day: u32,
@@ -30,6 +31,7 @@ impl Config {
 pub fn dispatch(config: &Config) {
     match config.day {
         1 => day1::run(config.part),
+        2 => day2::run(config.part),
         _ => println!("NYI!"),
     }
 }
