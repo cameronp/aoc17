@@ -4,19 +4,20 @@ use std::io::prelude::*;
 
 
 pub fn run(part: u32) {
+    let answer = compute(part);
+    println!("Week {}: ", part);
+    println!("{}", answer);
+}
 
+fn compute(part: u32) -> u32 {
     let input = load("inputs/day1.txt").unwrap();
     let values: Vec<u8> = parse(input);
 
     if part == 1 {
-        let answer = process(values);
-        println!("Week1: ");
-        println!("{}", answer);
+        process(values)
     }
     else {
-        let answer = process2(values);
-        println!("Week2: ");
-        println!("{:?}", answer);
+        process2(values)
     }
 }
 
@@ -73,3 +74,19 @@ fn is_valid_chunk(chunk: &[u8]) -> bool {
     chunk[0] == chunk[1]
 }
 
+#[cfg(test)]    
+mod test {
+    use super::*;
+
+    #[test]
+    fn part1() {
+        let result = compute(1);
+        assert!(result == 1341);
+    }
+
+    #[test]
+    fn part2() {
+        let result = compute(2);
+        assert!(result == 1348);
+    }
+} /* test */
